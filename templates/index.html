@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="alert alert-secondary" role="alert">
+    <h1>{{ header }}</h1>
+</div>
+<h4>{{ text }}</h4>
+{% if current_user.is_authenticated %}
+<a href="addbook" class="btn btn-secondary">Добавить книгу</a>
+{% endif %}
+{% for val in param %}
+<h3>Книга: {{ val["title"] }}</h3>
+<table cellspacing="5">
+    <tr>
+        <td bgcolor="#808080">Обложка</td>
+        <td bgcolor="#808080">Автор</td>
+        <td bgcolor="#808080">Описание</td>
+        <td bgcolor="#808080">Прочитана</td>
+    </tr>
+    <tr>
+        <td> <img src="{{val['path_image_title']}}"
+                 alt="здесь должна была быть картинка, но не нашлась"></td>
+        <td bgcolor="#FFDEAD">{{val["author"]}}</td>
+        <td bgcolor="#DEB887">{{val["description"]}}</td>
+        {% if val["finished"] == "Finished" %}
+        <td bgcolor="#32CD32">Да</td>
+        {% else %}
+        <td bgcolor="#DDA0DD">Нет</td>
+        {% endif %}
+    </tr>
+</table>
+{% if current_user.is_authenticated and current_user.id == val["user_id"] %}
+<div>
+    <a href="/editbook/{{ val["id_book"] }}" class="btn btn-warning">
+        Редактировать
+    </a>
+    <a href="/delbook/{{ val["id_book"] }}" class="btn btn-danger">
+        Удалить
+    </a>
+</div>
+{% endif %}
+{% endfor %}
+{% endblock %}

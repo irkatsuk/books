@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Добавление книги</h1>
+    <form action="" method="post" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <p>
+            Название книги<br>
+            {{ form.name(class="form-control") }}<br>
+            {% for error in form.name.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </p>
+        <p>
+            Автор книги<br>
+            {{ form.author(class="form-control") }}<br>
+            {% for error in form.author.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </p>
+        <p>
+            Описание книги<br>
+            {{ form.description(class="form-control") }}<br>
+            {% for error in form.description.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </p>
+        <p>
+            Книга прочитана?<br>
+            {{ form.isfin(class="form-control") }}<br>
+            {% for error in form.isfin.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </p>
+        <p>
+            Обложка по умолчанию<br>
+            <img src="/{{ title_image }}"
+                 alt="здесь должна была быть картинка, но не нашлась">
+            <br>Ваша обложка<br>
+        {{ form.path_image_title }}
+        {% for error in form.path_image_title.errors %}
+        <span style="color: red;">{{ error }}</span>
+        {% endfor %}
+        </p>
+        <p>{{ form.submit(type="submit", class="btn btn-primary", value='Добавить') }}</p>
+        <div>{{ message }}</div>
+    </form>
+{% endblock %}

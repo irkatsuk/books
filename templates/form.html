@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h4>Мои книги</h4>
+<p>
+    <font style="font-size: 24px; font-weight: bold">Регистрация</font>
+</p>
+<form action="" method="post" novalidate>
+    {{ form.hidden_tag() }}
+    <p>
+        Логин/адрес электронной почты<br>
+        {{ form.login(class="form-control") }}<br>
+        {% for error in form.login.errors %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endfor %}
+    </p>
+    <p>
+        Пароль<br>
+        {{ form.passw(class="form-control", type="password") }}<br>
+        {% for error in form.passw.errors %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endfor %}
+    </p>
+    <p>
+        Повторите пароль<br>
+        {{ form.repeat_passw(class="form-control", type="password") }}<br>
+        {% for error in form.repeat_passw.errors %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endfor %}
+    </p>
+     <p>
+        Фамилия<br>
+        {{ form.surname(class="form-control") }}<br>
+        {% for error in form.surname.errors %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endfor %}
+    </p>
+     <p>
+        Имя<br>
+        {{ form.name(class="form-control") }}<br>
+        {% for error in form.name.errors %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endfor %}
+    </p>
+    <p>{{ form.access(type="submit", class="btn btn-primary", value='Подтвердить') }}</p>
+</form>
+{% endblock %}
