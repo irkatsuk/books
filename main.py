@@ -64,8 +64,6 @@ def add_similar_reviews(id_book, title, author, rs):
     return is_find
 
 
-
-
 @login_manager.user_loader
 def load_user(user_id):
     db_sess = db_session.create_session()
@@ -119,6 +117,7 @@ def addbook():
     return render_template('addbooks.html', form=form,
                            title_image=DEFAULT_IMAGE_TITLE)
 
+
 def index_for_auth_users():
     rs = []
     session = db_session.create_session()
@@ -127,7 +126,7 @@ def index_for_auth_users():
             continue
         user = session.query(User).filter(User.id == books.user_id).first()
         review = session.query(Review).filter(Review.book_id == books.id).first()
-        curr_review = session.query(Review).\
+        curr_review = session.query(Review). \
             filter(Review.book_id == books.id,
                    Review.user_id == flask_login.current_user.id).first()
         d = dict()
@@ -270,7 +269,7 @@ def editreview(id_book):
     form = ReviewForm()
     if form.validate_on_submit():
         session = db_session.create_session()
-        review = session.query(Review).\
+        review = session.query(Review). \
             filter(Review.user_id == flask_login.current_user.id,
                    Review.book_id == id_book).first()
         if review is None:
@@ -293,7 +292,7 @@ def delreview(id_book):
     if not flask_login.current_user.is_authenticated:
         return redirect("/")
     session = db_session.create_session()
-    review = session.query(Review).\
+    review = session.query(Review). \
         filter(Review.user_id == flask_login.current_user.id,
                Review.book_id == id_book).first()
     if review is not None:
@@ -319,5 +318,7 @@ def review(id_book):
     add_similar_reviews(id_book, title, author, rs)
     return render_template('review.html', header='Рецензии', param=rs)
 
+
 if __name__ == '__main__':
-    app.run(port=8080, host='127.0.0.1')
+    port = int(os.environ.get("PORT", 8080))
+    app.run(host='0.0.0.0', port=port)
