@@ -238,7 +238,7 @@ def editbook(id_book):
                            title_image=book.path_image_title)
 
 
-@app.route('/delbook/<id_book>', methods=['GET', 'POST'])
+@app.route('/delbook/<id_book>', methods=['POST'])
 def delbook(id_book):
     session = db_session.create_session()
     if not flask_login.current_user.is_authenticated:
@@ -287,7 +287,7 @@ def editreview(id_book):
     return render_template('editreview.html', form=form)
 
 
-@app.route('/delreview/<id_book>', methods=['GET', 'POST'])
+@app.route('/delreview/<id_book>', methods=['POST'])
 def delreview(id_book):
     if not flask_login.current_user.is_authenticated:
         return redirect("/")
