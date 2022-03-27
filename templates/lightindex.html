@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="alert alert-secondary" role="alert">
+    <h1>{{ header }}</h1>
+</div>
+<h4>{{ text }}</h4>
+{% for val in param %}
+<h3>Книга: {{ val["title"] }}</h3>
+<table cellspacing="5">
+    <tr>
+        <td bgcolor="#808080">Автор</td>
+        <td bgcolor="#808080">Описание</td>
+        <td bgcolor="#808080">Рецензии</td>
+    </tr>
+    <tr>
+        <td bgcolor="#FFDEAD">{{val["author"]}}</td>
+        <td bgcolor="#DEB887">{{val["description"]}}</td>
+        {% if val["review"] == "no" %}
+        <td bgcolor="#DEB887">Рецензии отсутствуют</td>
+        {% else %}
+        <td bgcolor="#DEB887"><a href="/review/{{ val["id_book"] }}" class="btn btn-info">
+        Посмотреть рецензии
+    </a></td>
+        {% endif %}
+    </tr>
+</table>
+{% endfor %}
+{% endblock %}

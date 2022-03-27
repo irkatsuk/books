@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="alert alert-secondary" role="alert">
+    <h1>{{ header }}</h1>
+</div>
+<h4>{{ text }}</h4>
+<a href="/" class="btn btn-outline-success">
+        Вернуться на главную
+    </a>
+<h3>Книга: {{ param[0]["title"] }}</h3>
+<h3>Автор: {{ param[0]["author"] }}</h3>
+{% for val in param %}
+{% if loop.index0 > 0 %}
+<p></p>
+<h6>Книга: {{ val["title"] }}</h6>
+<h6>Автор: {{ val["author"] }}</h6>
+{% endif %}
+<table cellspacing="5">
+    <tr>
+        <td bgcolor="#808080">Рецензии</td>
+    </tr>
+    <tr>
+        <td bgcolor="#DEB887">{{val["description"]}}</td>
+    </tr>
+</table>
+{% endfor %}
+{% endblock %}

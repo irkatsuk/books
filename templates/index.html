@@ -16,6 +16,7 @@
         <td bgcolor="#808080">Автор</td>
         <td bgcolor="#808080">Описание</td>
         <td bgcolor="#808080">Прочитана</td>
+        <td bgcolor="#808080">Рецензии</td>
     </tr>
     <tr>
         <td> <img src="{{val['path_image_title']}}"
@@ -27,6 +28,13 @@
         {% else %}
         <td bgcolor="#DDA0DD">Нет</td>
         {% endif %}
+        {% if val["review"] == "no" %}
+        <td bgcolor="#DEB887">Рецензии отсутствуют</td>
+        {% else %}
+        <td bgcolor="#DEB887"><a href="/review/{{ val["id_book"] }}" class="btn btn-info">
+        Посмотреть рецензии
+    </a></td>
+        {% endif %}
     </tr>
 </table>
 {% if current_user.is_authenticated and current_user.id == val["user_id"] %}
@@ -36,6 +44,14 @@
     </a>
     <a href="/delbook/{{ val["id_book"] }}" class="btn btn-danger">
         Удалить
+    </a>
+    <a href="/editreview/{{ val["id_book"] }}" class="btn btn-info">
+        Рецензия
+    </a>
+    {% if val['curr_review'] == 'yes' %}
+    <a href="/delreview/{{ val["id_book"] }}" class="btn btn-danger">
+        Удалить рецензию
+    {% endif %}
     </a>
 </div>
 {% endif %}
